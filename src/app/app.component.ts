@@ -8,11 +8,10 @@ import { Component, HostListener } from '@angular/core';
 export class AppComponent {
   title = 'Petit Snake ';
   numbers = Array(30);
+  middle = this.numbers.length / 2;
   snake = [
-    [5, 22],
-    [6, 22],
-    [7, 22],
-    [8, 22],
+    [this.middle, this.middle],
+    [this.middle - 1, this.middle - 1],
   ];
 
   snakeBody = [''];
