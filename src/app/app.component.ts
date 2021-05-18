@@ -14,6 +14,7 @@ export class AppComponent {
     [7, 22],
     [8, 22],
   ];
+
   snakeBody = [''];
   direction = 'E';
   score = 0;
