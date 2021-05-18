@@ -28,6 +28,10 @@ export class AppComponent {
 
   toSnakeString = (x: number, y: number) => x + '-' + y;
 
+  hasEatSelf(arr: string[]) {
+    return new Set(arr).size !== arr.length;
+  }
+
   snakeGo(dir: string) {
     var newSnakeCase = [0, 0];
     switch (dir) {
@@ -62,12 +66,17 @@ export class AppComponent {
     }
 
     this.snakeBody = this.snake.map((s) => {
-      if (Math.max(...s) > 29 || Math.min(...s) < 0) {
-        this.gameOver = true;
-        this.ngOnDestroy();
-      }
       return s.join('-');
     });
+
+    if (
+      Math.max(...this.snake[0]) > 29 ||
+      Math.min(...this.snake[0]) < 0 ||
+      this.hasEatSelf(this.snakeBody)
+    ) {
+      this.gameOver = true;
+      this.ngOnDestroy();
+    }
   }
   // ngAfterContentInit() {
   //   // ...
@@ -90,10 +99,8 @@ export class AppComponent {
 
   reStart() {
     this.snake = [
-      [5, 22],
-      [6, 22],
-      [7, 22],
-      [8, 22],
+      [this.middle, this.middle],
+      [this.middle - 1, this.middle - 1],
     ];
     this.snakeBody = [''];
     this.direction = 'E';
